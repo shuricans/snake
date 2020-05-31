@@ -174,7 +174,7 @@ function keyPressed() {
                 default:
             }
         }
-    } else {
+    } else if(mode !== 'offer') {
         switch (keyCode) {
             case LEFT_ARROW: // LEFT
                 selector = selector === 1 ? 3 : selector - 1;
@@ -219,11 +219,9 @@ function keyPressed() {
                 }
                 return false;
             case 32: // SPACE
-                if(mode !== 'offer') {
-                    initNewGame();
-                    mode = 'play';
-                    return false;
-                }
+                initNewGame();
+                mode = 'play';
+                return false;
                 break;
             case UP_ARROW:
             case DOWN_ARROW:
