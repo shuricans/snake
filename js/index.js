@@ -46,6 +46,10 @@ $('document').ready(function () {
         $mdOK.modal('hide');
     });
 
+    $mdOK.on('hidden.bs.modal', function (event) {
+        localStorage.setItem("remind", false);
+    });
+
     // --- INIT TABLE RESULTS --------------------------------------------------
     let $tableResults = $('#tableResults').DataTable({
         scrollY: '30vh',
@@ -109,9 +113,25 @@ $('document').ready(function () {
         ordering:  false
     });
 
-    initAndShowModalDialogOK('<h5>Arrow keys left/right - speed select.</h5><h5>Space - start/restart.</h5>');
+    if (!localStorage.getItem("remind")) {
+      initAndShowModalDialogOK('<h5>Use arrow keys too turn or speed select.</h5><h5>Use space for start/restart.</h5>');
+    }
 });
 
 function initAndShowMDRecord() {
     $('#mdRecord').modal('show');
+}
+
+
+function getBest() {
+  let best = 0;
+  if (localStorage.getItem("results"))  {
+      let resultData = JSON.parse(localStorage.getItem("results"));
+      for(let i = 0; i < resultData.length; i++) {
+        if(Number.parseInt(resultData[i].score) > best) {
+          best = Number.parseInt(resultData[i].score);
+        }
+      }
+  }
+  return best;
 }

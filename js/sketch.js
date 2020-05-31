@@ -108,7 +108,7 @@ function draw() {
             drawHeaderArea(score, lastSpeedTextValue, playArea);
             rectMode(RADIUS);
             buttons.forEach(b => b.draw());
-            if (offer && score > 0) {
+            if (offer && score > getBest()) {
                 mode = 'offer';
                 initAndShowMDRecord();
             }
